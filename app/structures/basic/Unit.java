@@ -105,7 +105,10 @@ public class Unit {
 	@JsonIgnore
 	public void setPositionByTile(Tile tile) {
 		position = new Position(tile.getXpos(),tile.getYpos(),tile.getTilex(),tile.getTiley());
+		tile.setHasUnit(true);
+		tile.setUnit(this);
 	}
+	
 	
 	
 }

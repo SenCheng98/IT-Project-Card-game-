@@ -1,3 +1,1 @@
-[0m[[0m[31merror[0m] [0m[0mF:\ITProject\ITSD-DT2022-Template\app\demo\CheckMoveLogic.java:42:1: 不兼容的类型: structures.basic.Tile[][]无法转换为structures.basic.Tile[0m
-[0m[[0m[31merror[0m] [0m[0mtile[0m
-[0m[[0m[0minfo[0m] [0m[0m某些消息已经过简化; 请使用 -Xdiags:verbose 重新编译以获得完整输出[0m
+[0m[[0m[31merror[0m] [0m[0mF:\ITProject\ITSD-DT2022-Template\app\events\TileClicked.java:41:1: 非法的表达式开始[0m

@@ -28,6 +28,9 @@ public class Tile {
 	int tilex;
 	int tiley;
 	
+	Unit unit;
+	boolean hasUnit = false;
+	
 	public Tile() {}
 	
 	public Tile(String tileTexture, int xpos, int ypos, int width, int height, int tilex, int tiley) {
@@ -94,6 +97,20 @@ public class Tile {
 	public void setTiley(int tiley) {
 		this.tiley = tiley;
 	}
+	
+	public boolean getHasUnit() {
+		return this.hasUnit;
+	}
+	public void setHasUnit(boolean a) {
+		this.hasUnit = a;
+	}
+	public void setUnit(Unit unit) {
+		this.unit = unit;
+	}
+	public Unit getUnit() {
+		return this.unit;
+	}
+	
 	
 	/**
 	 * Loads a tile from a configuration file

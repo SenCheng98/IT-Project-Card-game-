@@ -36,7 +36,7 @@ public class BasicCommands {
 	 * highlighted). This command can be used multiple times to change the visualisation mode for a tile.
 	 * @param out
 	 * @param tile
-	 * @param mode
+	 * @param mode		// 0-slight white, 1- white, 2- red
 	 */
 	@SuppressWarnings({"deprecation"})
 	public static void drawTile(ActorRef out, Tile tile, int mode) {
@@ -132,6 +132,10 @@ public class BasicCommands {
 			returnMessage.put("tile", mapper.readTree(mapper.writeValueAsString(tile)));
 			if (altTell!=null) altTell.tell(returnMessage);
 			else out.tell(returnMessage, out);
+			
+			tile.setHasUnit(true);
+			tile.setUnit(unit);
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
