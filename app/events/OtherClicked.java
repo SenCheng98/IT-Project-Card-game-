@@ -18,11 +18,12 @@ import structures.GameState;
  */
 public class OtherClicked implements EventProcessor{
 
+	static int click = 0;
 	@Override
 	public void processEvent(ActorRef out, GameState gameState, JsonNode message) {
 		
-		
 	}
+
 
 }
 

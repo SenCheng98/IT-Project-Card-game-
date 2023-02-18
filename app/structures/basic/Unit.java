@@ -26,6 +26,7 @@ public class Unit {
 	UnitAnimationSet animations;
 	ImageCorrection correction;
 	
+	
 	public Unit() {}
 	
 	public Unit(int id, UnitAnimationSet animations, ImageCorrection correction) {
@@ -96,6 +97,7 @@ public class Unit {
 	public void setAnimations(UnitAnimationSet animations) {
 		this.animations = animations;
 	}
+	
 	
 	/**
 	 * This command sets the position of the Unit to a specified
