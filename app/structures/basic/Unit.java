@@ -26,6 +26,9 @@ public class Unit {
 	UnitAnimationSet animations;
 	ImageCorrection correction;
 	
+	int health;	// we need it
+	int attack;
+	
 	
 	public Unit() {}
 	
@@ -96,6 +99,19 @@ public class Unit {
 
 	public void setAnimations(UnitAnimationSet animations) {
 		this.animations = animations;
+	}
+	
+	public void setHealth(int health) {
+		this.health = health;
+	}
+	public int getHealth() {
+		return this.health;
+	}
+	public void setAttack(int attack) {
+		this.attack = attack;
+	}
+	public int getAttack() {
+		return this.attack;
 	}
 	
 	

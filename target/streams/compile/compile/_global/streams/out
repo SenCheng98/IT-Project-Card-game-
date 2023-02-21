@@ -1,1 +1,10 @@
-[0m[[0m[31merror[0m] [0m[0mF:\ITProject\ITSD-DT2022-Template\app\events\TileClicked.java:41:1: 非法的表达式开始[0m
+[0m[[0m[31merror[0m] [0m[0mF:\ITProject\ITSD-DT2022-Template\app\events\TileClicked.java:52:1: 无法将类 events.TileClicked中的方法 attack应用到给定类型;[0m
+[0m[[0m[31merror[0m] [0m[0m  需要: akka.actor.ActorRef,structures.basic.Unit,int,int[0m
+[0m[[0m[31merror[0m] [0m[0m  找到: 没有参数[0m
+[0m[[0m[31merror[0m] [0m[0m  原因: 实际参数列表和形式参数列表长度不同[0m
+[0m[[0m[31merror[0m] [0m[0mattack[0m
+[0m[[0m[31merror[0m] [0m[0mF:\ITProject\ITSD-DT2022-Template\app\events\TileClicked.java:63:1: 无法将类 events.TileClicked中的方法 attack应用到给定类型;[0m
+[0m[[0m[31merror[0m] [0m[0m  需要: akka.actor.ActorRef,structures.basic.Unit,int,int[0m
+[0m[[0m[31merror[0m] [0m[0m  找到: 没有参数[0m
+[0m[[0m[31merror[0m] [0m[0m  原因: 实际参数列表和形式参数列表长度不同[0m
+[0m[[0m[31merror[0m] [0m[0mattack[0m

@@ -53,27 +53,27 @@ public class CheckMoveLogic {
 		unit2.setPositionByTile(tile[7][2]); 
 		BasicCommands.drawUnit(out, unit2, tile[7][2]);
 		
-//		// Move unit, default, horizontal then vertical
-//		BasicCommands.moveUnitToTile(out, unit1, tile[5][2]);
-//		unit1.setPositionByTile(tile[5][2]); 
-//		
-//		try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
-//		
-//		// Move unit, default, horizontal then vertical
-//		BasicCommands.moveUnitToTile(out, unit, tile[1][1]);
-//		unit.setPositionByTile(tile[1][1]); 
-//		
-//		try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
-//		
-//		// Move unit, alternative, vertical then horizontal
-//		BasicCommands.moveUnitToTile(out, unit, tile[3][3], true);
-//		unit.setPositionByTile(tile[3][3]); 
-//		
-//		try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
-//		
-//		// Move unit, alternative, vertical then horizontal
-//		BasicCommands.moveUnitToTile(out, unit, tile[1][1], true);
-//		unit.setPositionByTile(tile[1][1]); 
+		// Move unit, default, horizontal then vertical
+		BasicCommands.moveUnitToTile(out, unit1, tile[5][2]);
+		unit1.setPositionByTile(tile[5][2]); 
+		
+		try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
+		
+		// Move unit, default, horizontal then vertical
+		BasicCommands.moveUnitToTile(out, unit1, tile[1][1]);
+		unit1.setPositionByTile(tile[1][1]); 
+		
+		try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
+		
+		// Move unit, alternative, vertical then horizontal
+		BasicCommands.moveUnitToTile(out, unit1, tile[3][3], true);
+		unit1.setPositionByTile(tile[3][3]); 
+		
+		try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
+		
+		// Move unit, alternative, vertical then horizontal
+		BasicCommands.moveUnitToTile(out, unit1, tile[1][1], true);
+		unit1.setPositionByTile(tile[1][1]); 
 		
 		//show hand cards
 		BasicCommands.addPlayer1Notification(out, "drawCard [1u]", 1);
