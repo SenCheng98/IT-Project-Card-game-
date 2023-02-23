@@ -12,14 +12,23 @@ package structures.basic;
  * @author Dr. Richard McCreadie
  *
  */
-public class MiniCard {
+public class MiniCard{			//show in the bottom
 
 	String[] cardTextures;
 	String[] animationFrames;
 	int fps;
 	int index;
 	
-	public MiniCard() {}
+	int position;		// minicard postion, need to be set
+	int id;	// minicardID = card ID, need to be set
+	
+	public static MiniCard[] miniCard = new MiniCard[6];	//store the mini card in an array
+	
+	Unit unit;
+	
+	public MiniCard() {		
+		
+	}
 
 	public MiniCard(String[] cardTextures, String[] animationFrames, int fps, int index) {
 		super();
@@ -61,8 +70,21 @@ public class MiniCard {
 		this.index = index;
 	}
 	
+	public void setPosition(int pos) {		//we need it
+		this.position = pos;
+	}
 	
+	public int getPosition() {
+		return this.position;
+	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return this.id;
+	}
 	
 	
 }

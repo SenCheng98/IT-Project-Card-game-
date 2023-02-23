@@ -24,9 +24,6 @@ public class TileClicked implements EventProcessor {
 		int x = message.get("tilex").asInt(); // coordinate x of clicked tile
 		int y = message.get("tiley").asInt(); // coordinate y of clicked tile
 		
-		if(Run.humanPlayer.getHealth() <= 0 || Run.aiPlayer.getHealth() <= 0) {	//game over
-			gameState.something = false;
-		}
 
 		if (gameState.something == true) {
 			// do some logic
@@ -49,7 +46,7 @@ public class TileClicked implements EventProcessor {
 								
 								for(int[] tile2 : attackTiles) {
 									if(tile2[0] == x && tile2[1] == y) {	// ★★ 1st situation ---> the clicked unit is in attack range
-										attack();				// ★ just attack
+										attack(out, lastUnit, x, y);				// ★ just attack
 										lock2 = 1;
 										break;
 									}
@@ -60,7 +57,8 @@ public class TileClicked implements EventProcessor {
 								int[] pos = new int[2];
 								pos = preAttackMove(lastUnit, x, y);		// get the new position
 								move(out, lastUnit, pos[0], pos[1]);		// ★ move first then attack
-								attack();
+								try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();} // ★ avoid to delete unit when it's moving
+								attack(out, lastUnit, x, y);
 								break;
 							}else {
 								move(out, lastUnit, x, y);		// ★ just move
@@ -100,16 +98,84 @@ public class TileClicked implements EventProcessor {
 	}
 	
 	public void move (ActorRef out, Unit unit, int x, int y) {	// (x, y) is the new position of the unit
-		BasicCommands.moveUnitToTile(out, unit, Run.tile[x][y], true);	// move 
 		
+		BasicCommands.moveUnitToTile(out, unit, Run.tile[x][y], true);	// move 	
 		Run.tile[unit.getPosition().getTilex()][unit.getPosition().getTiley()].setUnit(null); //delete the information in the old tile.
 		Run.tile[unit.getPosition().getTilex()][unit.getPosition().getTiley()].setHasUnit(false); 
 		lastUnit.setPositionByTile(Run.tile[x][y]);	//set the new position of the unit
 	}
 	
-	public void attack() {
+	public void attack(ActorRef out, Unit unit, int x, int y) {
 		
-		//input: ActorRef out, Unit unit, int x, int y
+		Unit attacker = unit;
+		Unit defender = Run.tile[x][y].getUnit();
+		int attackerHealth = unit.getHealth();
+		int defenderHealth = Run.tile[x][y].getUnit().getHealth();
+		int attackerAtt = unit.getAttack();
+		int defenderAtt = Run.tile[x][y].getUnit().getAttack();
+		
+		defenderHealth = defenderHealth - attackerAtt;
+		attackerHealth = attackerHealth - defenderAtt;
+		System.out.println(defenderHealth + "  " + attackerHealth); //print
+		
+		if(defenderHealth <= 0) {
+			
+			BasicCommands.addPlayer1Notification(out, "I kill u !", 2);
+			deleteUnit(out, defender);
+			
+		}else {
+			
+			BasicCommands.addPlayer1Notification(out, "refresh Defender", 2);
+			reFreshUnit(out, defender, defenderAtt, defenderHealth);
+			
+		}
+
+		if(attackerHealth <= 0) {
+			
+			BasicCommands.addPlayer1Notification(out, "I will come back !", 2);
+			deleteUnit(out, attacker);
+
+		}else {
+			
+			BasicCommands.addPlayer1Notification(out, "refresh Attacker", 2);
+			reFreshUnit(out, attacker, attackerAtt, attackerHealth);
+
+		}
+		
+		if(defender.getId() == 0) {
+			Run.humanPlayer.setHealth(defenderHealth);		// connect unit's health to player's health
+		}
+		if(defender.getId() == 11) {
+			Run.aiPlayer.setHealth(defenderHealth);
+		}
+		
+		if(attacker.getId() == 0) {						// connect unit's health to player's health
+			Run.humanPlayer.setHealth(attackerHealth);
+		}
+		if(attacker.getId() == 11) {
+			Run.aiPlayer.setHealth(attackerHealth);
+		}
+		
+		//for test
+		System.out.println("attackerHealth: " + attackerHealth);
+		System.out.println("defenderHealth: " + defenderHealth);
+		
+	}
+	
+	public void reFreshUnit(ActorRef out, Unit unit, int attack, int health) {
+		
+		BasicCommands.drawUnit(out, unit, Run.tile[unit.getPosition().getTilex()][unit.getPosition().getTiley()]);
+		try {Thread.sleep(100);} catch (InterruptedException e) {e.printStackTrace();}
+		BasicCommands.setUnitAttack(out, unit, attack);
+		BasicCommands.setUnitHealth(out, unit, health);
+	}
+	
+	public void deleteUnit(ActorRef out, Unit unit) {
+		BasicCommands.deleteUnit(out, unit);
+		Run.tile[unit.getPosition().getTilex()][unit.getPosition().getTiley()].setUnit(null); //delete the information in the old tile.
+		Run.tile[unit.getPosition().getTilex()][unit.getPosition().getTiley()].setHasUnit(false); 
+		
+		Run.unitOnTile.remove(unit);
 	}
 	
 	public int[] preAttackMove(Unit unit, int x, int y) {

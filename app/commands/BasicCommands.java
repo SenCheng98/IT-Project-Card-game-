@@ -84,6 +84,7 @@ public class BasicCommands {
 	@SuppressWarnings({"deprecation"})
 	public static void setUnitAttack(ActorRef out, Unit unit, int attack) {
 		try {
+			unit.setAttack(attack);		// we need it
 			ObjectNode returnMessage = Json.newObject();
 			returnMessage.put("messagetype", "setUnitAttack");
 			returnMessage.put("unit", mapper.readTree(mapper.writeValueAsString(unit)));
@@ -105,6 +106,7 @@ public class BasicCommands {
 	@SuppressWarnings({"deprecation"})
 	public static void setUnitHealth(ActorRef out, Unit unit, int health) {
 		try {
+			unit.setHealth(health);		//we need it
 			ObjectNode returnMessage = Json.newObject();
 			returnMessage.put("messagetype", "setUnitHealth");
 			returnMessage.put("unit", mapper.readTree(mapper.writeValueAsString(unit)));

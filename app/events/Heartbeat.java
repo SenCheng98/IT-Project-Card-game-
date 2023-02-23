@@ -3,6 +3,7 @@ package events;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import akka.actor.ActorRef;
+import demo.Run;
 import structures.GameState;
 
 /**
@@ -23,6 +24,12 @@ public class Heartbeat implements EventProcessor{
 	@Override
 	public void processEvent(ActorRef out, GameState gameState, JsonNode message) {
 		
+		if(Run.humanPlayer.getHealth() <= 0 || Run.aiPlayer.getHealth() <= 0) {	//game over
+			gameState.something = false;
+		}
+		if (gameState.something == false) {
+			System.out.println("Game over!");
+		}
 	}
 
 }

@@ -6,6 +6,7 @@ import akka.actor.ActorRef;
 import commands.BasicCommands;
 import demo.Run;
 import structures.GameState;
+import structures.basic.MiniCard;
 
 /**
  * Indicates that the user has clicked an object on the game canvas, in this
@@ -79,7 +80,10 @@ class handCard{
 	
 	static int setHumanCard = 3;	//have 3 cards at the beginning
 	static int setAiCard = 3;
+	static int addCard = 0;		//completing hand card
+	
 	public static void cardNumber(ActorRef out) {
+	
 		
 		if(setHumanCard > 6) {		//handcards limitation
 			setHumanCard = 6;
@@ -91,17 +95,42 @@ class handCard{
 		if(EndTurnClicked.turnCount > 0) {
 			if(EndTurnClicked.turnCount % 2 == 0) {	//human turn
 				
-				//Draw cards
 				for(int i=0;i<setHumanCard;i++) {
-					if(Run.humanCard.get(0) == null)	break;
-					BasicCommands.drawCard(out, Run.humanCard.get(0), i+1, 1);
-					Run.humanCard.remove(0);
-				}	
+					
+					if(MiniCard.miniCard[i] == null) {		// if there is no card on one position, insert a card to it
+						
+						
+						if(Run.humanCard.get(0) == null)	break;
+						
+						// 5 steps in setting hand cards (sequential extraction, not randomly)
+						// draw minicards
+						// store cards to minicard[] + set a position of minicard + set minicard id
+						// delete deck card
+						BasicCommands.drawCard(out, Run.humanCard.get(0), i+1, 1);
+						MiniCard.miniCard[i] = Run.humanCard.get(0).getMiniCard();
+						MiniCard.miniCard[i].setPosition(i+1);
+						MiniCard.miniCard[i].setId(Run.humanCard.get(0).getId());
+						Run.humanCard.remove(0);
+					}
+					
+				}
+
+				System.out.println("card remain: " + Run.humanCard.size());
+				System.out.println(Run.humanCard.get(0));
 				setAiCard = setAiCard + 1;
 			}
+			
+			
 			if(EndTurnClicked.turnCount % 2 == 1) {	//ai turn
 				
 				setHumanCard = setHumanCard + 1; 
+				for(int i=0;i<6;i++) {
+					if(MiniCard.miniCard[i] != null) {
+						BasicCommands.deleteCard(out, i+1);
+						MiniCard.miniCard[i] = null;
+					}
+				}
+				
 			}
 		}
 
